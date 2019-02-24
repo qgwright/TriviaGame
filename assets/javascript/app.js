@@ -1,14 +1,15 @@
 var panel = $('#quiz-area');
-var countStartNumer = 30;
-var Smurfs_Theme_Song = new Audio("./assets/sound/Smurfs_Theme_Song.mp3");
-var gargamel = new Audio("./assets/sound/gargamel.mp3")
+var countStartNumber = 30;
 
+var Smurfs_Theme = new Audio("./assets/sound/Smurfs_Theme_Song.mp3");
+var gargamel = new Audio("./assets/sound/gargamel.mp3");
+var GranpaSmurf = new Audio("./assets/sound/GranpaSmurf.mp3");
 
-$(document).ready(function() {
-   Smurfs_Theme_Song.play();
-});
+   $(document).getELement
 
-    // start the game when user clicks on Start button
+    
+
+    // start the game when user clicks on Start button 
     $(document).on('click', '#start-over', function(e) {
       game.reset();
   });
@@ -20,7 +21,7 @@ $(document).ready(function() {
   $(document).on('click', '#start', function(e) {
       $('.timer').append('<h2>Time Remaining: <span id="counter-number">30</span> Seconds</h2>');
       game.loadQuestion();
-      Smurfs_Theme_Song.pause();
+      Smurfs_Theme.pause();
   });
   
   ///////////////////////////////////////////////////////////////////////////////
@@ -30,43 +31,53 @@ $(document).ready(function() {
   var questions =[{
       question: "Which smurf wore glasses?",
       answers: ["Vanity Smurf,Brainy Smurf, Bifocal Smurf"],
-      correct: "Brainy Smurf"
+      correct: "Brainy Smurf",
+      image: "assets/images/brainy.gif"
     },{
       question: "What year did the smurfs animated television series air in the U.S?",
       answers: ["1979, 1980, 1981"],
-      correct: "1981"
+      correct: "1981",
+      image: "assets/images/happysmurf.gif"
     }, {
       question: "What do the Smurfs live in?",
       answers: ["molehills", "caves", "mushrooms"],
-      correct: "mushrooms"
+      correct: "mushrooms",
+      image: "assets/images/happysmurf.gif"
     }, {
       question: "Which character is in charge of the Smurfs?",
       answers: ["Brainy Smurf", "Commander Smurf", "Papa Smurf"],
-      correct: "Papa Smurf"
+      correct: "Papa Smurf",
+      image: "assets/images/brainy.gif"
     },{
       question: "What color is Smurfettes hair?",
       answers: ["red", "white", "blond"],
-      correct: "blond"
+      correct: "blond",
+      image: "assets/images/smurfette.gif"
     },{
       question: "What was the name of the villan in The Smurfs?",
       answers: ["Azreal", "Gargamel", "Mumm ra"],
-      correct: "Gargamel"
+      correct: "Gargamel",
+      image: "assets/images/gargamel"
     },{
       question: "What color are Papa Smurfs hat and pants?",
       answers: ["white", "red", "yellow"],
-      correct: "red"
+      correct: "red",
+      image: "assets/images/happysmurf.git"
     },{
       question: "What is tha name of Gargamels cat?",
       answers: ["Frisky", "Azreal", "Rumplestiltskin"],
-      correct: "Azreal"
+      correct: "Azreal",
+      image: "assets/images/gargamel.gif"
     },{
       question: "How many female smurfs are there?",
       answers: ["one", "three", "two"],
-      correct: "three - Smurfette,Sassette Smurfling,and Nanny Smurf"
+      correct: "three - Smurfette,Sassette Smurfling,and Nanny Smurf",
+      image: "assets/images/smurfette.gif"
     },{
       question: "Which Smurf wears yellow clothes?",
       answers: ["Papa Smurf", "Happy Smurf","Granpa Smurf"],
-      correct: "Granpa Smurf"
+      correct: "Granpa Smurf",
+      image: "assets/images/brainy.gif"
     }];
 
 
@@ -99,7 +110,7 @@ var game = {
       game.loadQuestion();
   },
   timeUp: function() {
-      badSound.play();
+      GranpaSmurf.play();
       clearInterval(timer);
       $('#counter-number').html(game.counter);
 
@@ -114,12 +125,12 @@ var game = {
       }
   },
   results: function() {
-      finalSound.play();
+      Smurfs_Theme.play();
       clearInterval(timer);
 
-      panel.html('<h2>All done, heres how you did!</h2>');
+      panel.html('<h2>Your smurfing time is up, heres how you did!</h2>');
       $('#counter-number').html(game.counter);
-      panel.append('<h3>Correct Answers: ' + game.correct + '</h3>');
+      panel.append('<h3>Correct Answers:' + game.correct + '</h3>');
       panel.append('<h3>Incorrect Answers: ' + game.incorrect + '</h3>');
       panel.append('<h3>Unanswered: ' + (questions.length - (game.incorrect + game.correct)) + '</h3>');
       panel.append('<br><button id="start-over">Start Over?</button>');
@@ -134,7 +145,7 @@ var game = {
       }
   },
   answeredIncorrectly: function() {
-      badSound.play();
+      GranpaSmurf.play();
       game.incorrect++;
       clearInterval(timer);
       panel.html('<h2>Nope!</h2>');
