@@ -4,8 +4,17 @@ var cheer = new Audio("/assets/sounds/cheer.wav");
 var Smurfs_Theme = new Audio("./assets/sound/Smurfs_Theme_Song.mp3");
 var gargamel = new Audio("./assets/sound/gargamel.mp3");
 var GrandpaSmurf = new Audio("./assets/sound/GrandpaSmurf.mp3");
-
+var correctAnswer = [
+  "./assets/images/brainy.gif",
+  "./assets/images/nailedit.gif",
+  "./assets/images/gargamel.gif"
+];
+var incorrectAnswer = [
+  "./assets/images/nopenope.gif",
+  "./assets/images/tenor.gif"
+];
 // start the game when user clicks on Start button
+
 $(document).on("click", "#start-over", function(e) {
   game.reset();
 });
@@ -36,8 +45,8 @@ var questions = [
   {
     question:
       "What year did the smurfs animated television series air in the U.S?",
-    answers: ["1979", "1980", "1981"],
-    correctAnswer: "1981",
+    answers: [1979, 1980, 1981],
+    correctAnswer: 1981,
     image: "./assets/images/brainy.gif"
   },
   {
@@ -160,7 +169,7 @@ var game = {
   },
   clicked: function(e) {
     clearInterval(timer);
-
+    console.log($(e.target).data("name"), typeof $(e.target).data("name"));
     if (
       $(e.target).data("name") === questions[this.currentQuestion].correctAnswer
     ) {
@@ -170,6 +179,8 @@ var game = {
     }
   },
   answeredIncorrectly: function() {
+    var image =
+      incorrectAnswer[Math.floor(Math.random() * incorrectAnswer.length)];
     GrandpaSmurf.play();
     game.incorrect++;
     clearInterval(timer);
@@ -179,7 +190,7 @@ var game = {
         questions[game.currentQuestion].correctAnswer +
         "</h3>"
     );
-    panel.append('<img src="' + questions[game.currentQuestion].image + '" />');
+    panel.append('<img src="' + image + '" />');
 
     if (game.currentQuestion === questions.length - 1) {
       setTimeout(game.results, 3 * 1000);
@@ -188,11 +199,12 @@ var game = {
     }
   },
   answeredCorrectly: function() {
+    var image = correctAnswer[Math.floor(Math.random() * correctAnswer.length)];
     cheer.play();
     clearInterval(timer);
     game.correct++;
     panel.html("<h2>Correct!</h2>");
-    panel.append('<img src="' + questions[game.currentQuestion].image + '" />');
+    panel.append('<img src="' + image + '" />');
 
     if (game.currentQuestion === questions.length - 1) {
       setTimeout(game.results, 3 * 1000);
